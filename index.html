@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>My Webview</title>
+</head>
+<body>
+  <h1>My Custom Webview</h1>
+  <div id="app"></div>
+
+  <script>
+    // Grab the context NewStore passes via the URL hash
+    function getContext() {
+      const hash = window.location.hash.slice(1);
+      if (!hash) {
+        // Fallback for local dev / GitHub Pages testing
+        return { contextProps: { formData: { email_optin: 'true' } } };
+      }
+      return JSON.parse(atob(decodeURIComponent(hash)));
+    }
+
+    const context = getContext();
+    console.log('Context:', context);
+
+    // Use context.contextProps.formData, context.auth, etc.
+    document.getElementById('app').innerText = JSON.stringify(context, null, 2);
+  </script>
+</body>
+</html>
