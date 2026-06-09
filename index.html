@@ -1,61 +1,132 @@
+<style>body{margin:0}img{display:block;max-width:100%}</style><style>:root{--code-bg:#1e1e2e;--code-fg:#cdd6f4;--code-border:#313244}@media(prefers-color-scheme:light){:root{--code-bg:#eff1f5;--code-fg:#4c4f69;--code-border:#ccd0da}}pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--code-border);border-radius:6px;padding:12px 16px;overflow-x:auto;font-size:13px;line-height:1.6;tab-size:4}pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;white-space:pre}code:not(pre code){background:rgba(128,128,128,0.15);padding:0.15em 0.4em;border-radius:4px;font-size:0.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}</style><script>(function(){function S(){var d={};Object.defineProperties(this,{getItem:{value:function(k){return d.hasOwnProperty(k)?d[k]:null}},setItem:{value:function(k,v){var o=d[k]||null;d[k]=String(v);this.length=Object.keys(d).length}},removeItem:{value:function(k){delete d[k];this.length=Object.keys(d).length}},clear:{value:function(){d={};this.length=0}},key:{value:function(i){return Object.keys(d)[i]||null}},length:{value:0,writable:true}})}try{window.localStorage}catch(e){Object.defineProperty(window,'localStorage',{value:new S(),configurable:true})}try{window.sessionStorage}catch(e){Object.defineProperty(window,'sessionStorage',{value:new S(),configurable:true})}var hp=history.pushState;history.pushState=function(){try{hp.apply(history,arguments)}catch(e){}};var hr=history.replaceState;history.replaceState=function(){try{hr.apply(history,arguments)}catch(e){}};try{document.cookie}catch(e){Object.defineProperty(document,'cookie',{get:function(){return ''},set:function(){},configurable:true})}})();</script><script>document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;e.preventDefault();var id=a.getAttribute('href').slice(1);if(!id)return;var el=document.getElementById(id);if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}try{history.replaceState(null,'','#'+id)}catch(e){}});</script><!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <title>React Example</title>
+  <title>Warranty Selection</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="user-scalable=no, width=device-width">
   <script type="application/javascript">
     function getContext() {
-      const hash = window.location.hash.slice(1)
+      const hash = window.location.hash.slice(1);
       if (!hash) {
-        // fallback for local development
-        return { contextProps: { formData: { loyalty_id: '1234567890' } } }
+        return {
+          contextProps: {
+            formData: {
+              associateId: "demo-associate",
+              storeId: "demo-store",
+              cartId: "demo-cart-001"
+            }
+          }
+        };
       }
-      return JSON.parse(atob(decodeURIComponent(hash)))
+      return JSON.parse(atob(decodeURIComponent(hash)));
     }
-
-    const context = getContext()
+    const context = getContext();
   </script>
-
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-
   <style>
-    label,
-    input {
-      display: block;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f5f7; color: #1d1d1f; padding: 20px 16px; }
+    h1 { font-size: 20px; text-align: center; margin-bottom: 4px; }
+    .subtitle { font-size: 13px; color: #86868b; text-align: center; margin-bottom: 20px; }
+    .item { background: #fff; border-radius: 14px; padding: 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .item-name { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+    .option { display: flex; align-items: center; gap: 10px; padding: 12px; border: 2px solid #e5e5ea; border-radius: 10px; margin-bottom: 8px; cursor: pointer; transition: all 0.15s; }
+    .option:hover { border-color: #c7c7cc; }
+    .option.selected { border-color: #0071e3; background: #f0f7ff; }
+    .option input[type="radio"] { accent-color: #0071e3; width: 18px; height: 18px; cursor: pointer; }
+    .option-details { flex: 1; }
+    .option-label { font-size: 14px; font-weight: 500; }
+    .option-desc { font-size: 11px; color: #86868b; }
+    .option-price { font-size: 14px; font-weight: 600; color: #0071e3; }
+    .skip { font-size: 12px; color: #86868b; text-align: center; cursor: pointer; text-decoration: underline; margin-top: -4px; margin-bottom: 8px; }
+    #summary { background: #fff; border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); display: none; }
+    .summary-row { display: flex; justify-content: space-between; font-size: 13px; padding: 3px 0; }
+    .summary-row.total { font-weight: 600; font-size: 15px; border-top: 1px solid #e5e5ea; padding-top: 8px; margin-top: 4px; }
+    button { width: 100%; padding: 14px; border: none; border-radius: 12px; background: #0071e3; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; }
+    button:hover { background: #0077ed; }
   </style>
 </head>
 
 <body>
-  <div id="extended-attributes"></div>
+  <h1>Add Warranty Protection</h1>
+  <p class="subtitle">Select a plan for each item</p>
+  <div id="items"></div>
+  <div id="summary"></div>
+  <button id="submit" onclick="handleSubmit()">Skip Warranty</button>
 
-  <script type="text/babel">
-    if (context && context.contextProps) {
-      const domContainer = document.querySelector('#extended-attributes');
-      const root = ReactDOM.createRoot(domContainer);
-      const translation = {
-        loyalty_id: 'Loyalty ID'
+  <script type="application/javascript">
+    var items = [
+      { id: "1", name: "Running Shoes — Air Max", price: 179.99 },
+      { id: "2", name: "Waterproof Jacket — Alpine Pro", price: 249.99 },
+      { id: "3", name: "Smart Watch — Pulse GT", price: 399.99 }
+    ];
+
+    var warranties = [
+      { id: "std", label: "1-Year Standard", desc: "Covers manufacturing defects", pct: 0.08 },
+      { id: "ext", label: "2-Year Extended", desc: "Full coverage incl. accidental damage", pct: 0.14 }
+    ];
+
+    var selections = {};
+
+    function render() {
+      var container = document.getElementById("items");
+      container.innerHTML = "";
+
+      items.forEach(function (item) {
+        var card = document.createElement("div");
+        card.className = "item";
+        var title = document.createElement("div");
+        title.className = "item-name";
+        title.textContent = item.name;
+        card.appendChild(title);
+
+        warranties.forEach(function (w) {
+          var price = (item.price * w.pct).toFixed(2);
+          var isSelected = selections[item.id] === w.id;
+
+          var opt = document.createElement("div");
+          opt.className = "option" + (isSelected ? " selected" : "");
+          opt.onclick = function () {
+            selections[item.id] = isSelected ? null : w.id;
+            render();
+          };
+
+          var radio = document.createElement("input");
+          radio.type = "radio";
+          radio.name = "warranty-" + item.id;
+          radio.checked = isSelected;
+
+          var details = document.createElement("div");
+          details.className = "option-details";
+          details.innerHTML = '<div class="option-label">' + w.label + '</div><div class="option-desc">' + w.desc + '</div>';
+
+          var priceEl = document.createElement("div");
+          priceEl.className = "option-price";
+          priceEl.textContent = "" + total.toFixed(2);
+      } else {
+        summaryEl.style.display = "none";
+        btn.textContent = "Skip Warranty";
       }
-
-      const LabelledInput = function (props) {
-        return (
-          <label>
-            {props.name}
-            <input type="text" name={props.name} value={props.value} onChange={() => null} />
-          </label>
-        )
-      }
-
-      const Form = () => {
-        return Object.entries(context.contextProps.formData).map(([name, value]) => (
-          <LabelledInput key={name} name={translation[name] || name} value={value} />
-        ))
-      }
-
-      root.render(<Form />);
     }
+
+    function handleSubmit() {
+      var payload = {
+        cartId: context.contextProps.formData.cartId,
+        associateId: context.contextProps.formData.associateId,
+        storeId: context.contextProps.formData.storeId,
+        warranties: []
+      };
+      items.forEach(function (item) {
+        if (selections[item.id]) {
+          payload.warranties.push({ itemId: item.id, itemName: item.name, warrantyId: selections[item.id] });
+        }
+      });
+      console.log("Warranty payload:", JSON.stringify(payload, null, 2));
+      alert("Warranty selections saved!
+See console for payload.");
+    }
+
+    render();
   </script>
 </body>
 
